@@ -48,80 +48,73 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
       <HeroSection />
-      <main className="flex-grow">
-        <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
-          <div className="px-4 sm:px-0">
-            <div className="border-b border-gray-200">
-              <nav className="-mb-px flex space-x-8 overflow-x-auto">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    className={`whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm ${
-                      activeCategory === category
-                        ? 'border-teal-500 text-accent-indigo'
-                        : 'border-transparent text-gray-500 hover:text-accent-amber hover:border-gray-300'
-                    }`}
-                    onClick={() => setActiveCategory(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </nav>
+
+      {/* Main Content */}
+      <main className="flex-grow py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Categories Navigation */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold mb-6 heading-gradient">Khám phá theo chuyên ngành</h2>
+            <div className="flex flex-wrap gap-3">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  className={`category-pill ${activeCategory === category ? 'active' : ''}`}
+                  onClick={() => setActiveCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
             </div>
           </div>
-          <div className="px-4 py-8 sm:px-0">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-accent-indigo">Sách nổi bật</h2>
-              <a href="#" className="text-sm font-medium text-accent-coral hover:text-rose-600 flex items-center">
+
+          {/* Featured Books Section */}
+          <div className="my-10">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold heading-gradient">Sách nổi bật</h2>
+              <a
+                href="#"
+                className="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center group"
+              >
                 Xem tất cả
-                <ChevronRight className="ml-1 h-4 w-4" />
+                <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
               </a>
             </div>
-            <div className="mt-6 grid grid-cols-1 gap-6 sm strugg:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {featuredBooks.map((book) => (
-                <div
-                  key={book.id}
-                  className="group bg-white overflow-hidden shadow-md rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 animate-fade-in"
-                >
-                  <div className="relative aspect-w-2 aspect-h-3 bg-gray-200">
+                <div key={book.id} className="book-card animate-fade-in-up">
+                  <div className="book-cover">
                     <img
                       src={book.cover}
                       alt={book.title}
-                      className="w-full h-64 object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover object-center"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
-                    <div className="absolute top-2 right-2">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-accent-coral text-white">
-                        {book.specialty}
-                      </span>
-                    </div>
+                    <div className="book-specialty">{book.specialty}</div>
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-sm font-medium text-accent-indigo group-hover:text-indigo-700">
-                      <a href={`/books/${book.id}`}>
-                        <span className="absolute inset-0" aria-hidden="true"></span>
-                        {book.title}
-                      </a>
+                  <div className="book-info">
+                    <h3 className="book-title">
+                      <a href={`/books/${book.id}`}>{book.title}</a>
                     </h3>
-                    <div className="mt-2 flex items-center text-xs text-gray-500">
-                      <User className="h-4 w-4 mr-1 text-accent-amber" />
+                    <div className="book-meta">
+                      <User className="h-4 w-4 mr-1" />
                       <span>{book.author}</span>
                     </div>
-                    <div className="mt-1 flex items-center text-xs text-gray-500">
-                      <BookOpen className="h-4 w-4 mr-1 text-accent-amber" />
-                      <span>{book.pages} trang | {book.previewPages} trang xem trước</span>
+                    <div className="book-meta">
+                      <BookOpen className="h-4 w-4 mr-1" />
+                      <span>
+                        {book.pages} trang | {book.previewPages} trang xem trước
+                      </span>
                     </div>
-                    <div className="mt-4 flex justify-between items-center">
-                      <a
-                        href={`/books/${book.id}`}
-                        className="text-xs font-medium text-accent-coral hover:text-rose-600"
-                      >
+                    <div className="book-actions">
+                      <a href={`/books/${book.id}`} className="preview-link">
                         Xem trước
                       </a>
                       <button
                         onClick={() => console.log(`Requesting book: ${book.title}`)}
-                        className="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-accent-amber hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
+                        className="request-button"
                       >
                         Yêu cầu bản dịch
                       </button>
@@ -129,6 +122,32 @@ const HomePage = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Additional Featured Section */}
+          <div className="my-16">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="md:flex">
+                <div className="md:w-1/2">
+                  <img 
+                    src="/api/placeholder/800/600" 
+                    alt="Sách mới" 
+                    className="h-full w-full object-cover object-center"
+                  />
+                </div>
+                <div className="p-8 md:w-1/2 flex flex-col justify-center">
+                  <div className="badge mb-4">Mới cập nhật</div>
+                  <h2 className="text-2xl font-bold mb-4 heading-gradient">Hợp tác cùng các chuyên gia y khoa</h2>
+                  <p className="text-gray-600 mb-6">
+                    Chúng tôi đang làm việc với các chuyên gia y khoa hàng đầu trong nước để mang đến những bản dịch chất lượng cao. Đội ngũ biên dịch của chúng tôi không chỉ thông thạo về ngôn ngữ mà còn có kiến thức chuyên môn sâu rộng.
+                  </p>
+                  <a href="/team" className="btn-primary inline-flex items-center self-start">
+                    Tìm hiểu thêm
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

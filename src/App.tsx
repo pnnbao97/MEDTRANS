@@ -5,6 +5,8 @@ import BookPreviewPage from './pages/BookPreviewPage';
 import RequestBookPage from './pages/RequestBookPage';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import TeamPage from './pages/TeamPage';
+import AboutPage from './pages/AboutPage';
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/team" element={<TeamPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/books/:bookId" element={<BookPreviewPage />} />
             <Route path="/request" element={<RequestBookPage />} />
           </Routes>
