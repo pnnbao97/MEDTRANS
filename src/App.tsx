@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-gray-50">
+      <div className="flex flex-col min-h-screen">
         <Navigation />
         <main className="flex-grow">
           <Routes>
